@@ -72,7 +72,7 @@
                     var date1 = new Date(rental_date);
                     var date2 = new Date(return_date);
                     var diffTime = Math.abs(date2 - date1);
-                    var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
                     total = diffDays * price_day;
                 }
                 $('#total').val(total);

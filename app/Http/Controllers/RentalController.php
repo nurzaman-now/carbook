@@ -22,8 +22,8 @@ class RentalController extends Controller
         ]);
 
         $totalPrice = $car->price_day *
-            (strtotime($request->return_date) - strtotime($request->rental_date))
-            / (60 * 60 * 24);
+            ((strtotime($request->return_date) - strtotime($request->rental_date))
+                / (60 * 60 * 24) + 1);
 
         $create = Rental::create([
             'user_id' => auth()->id(),
@@ -70,9 +70,8 @@ class RentalController extends Controller
         $rental = Rental::where('car_id', $car->id)->first();
 
         $totalPrice = $car->price_day *
-            (strtotime($rental->return_date) -
-                strtotime(now()))
-            / (60 * 60 * 24);
+            ((strtotime($rental->return_date) - strtotime(now()))
+                / (60 * 60 * 24) + 1);
 
         $create = ReturnRental::create([
             'user_id' => auth()->id(),
