@@ -28,6 +28,7 @@
                                         <th>Harga</th>
                                         <th>Tanggal Booking</th>
                                         <th>Tanggal Pengembalian</th>
+                                        <th>Total harga sewa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,6 +42,8 @@
                                                 RP. {{ number_format($rental->car->price_day, 0, ',', '.') }}</td>
                                             <td class="text-center">{{ $rental->rental_date }}</td>
                                             <td class="text-center">{{ $rental->return_date }}</td>
+                                            <td class="text-center">
+                                                RP. {{ number_format($rental->total_price, 0, ',', '.') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
