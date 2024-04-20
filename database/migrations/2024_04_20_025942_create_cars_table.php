@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('name');
             $table->foreignUuid('brand_id')->references('id')->on('brands')->cascadeOnDelete();
             $table->string('model');
-            $table->string('plate_number');
+            $table->string('license_plate');
             $table->decimal('price_day', 10, 2);
-            $table->boolean('is_available')->default(true);
             $table->timestamps();
         });
     }

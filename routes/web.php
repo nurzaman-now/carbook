@@ -26,35 +26,44 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'loginPost');
     Route::post('/logout', 'logout')->name('logout');
 
-    Route::get('profile')->name('profile')->middleware('auth');
+    Route::get('profile', 'profile')->name('profile')->middleware('auth');
+    Route::put('profile', 'profileUpdate')->name('profile.update')->middleware('auth');
 });
 
-Route::controller(BrandController::class)->name('brands.')->group(function () {
-    Route::get('/brands', 'index')->name('index');
-    Route::get('/brands/{brand}/show', 'show')->name('show');
-    Route::get('/brands/create', 'create')->name('create');
-    Route::post('/brands', 'store');
-    Route::get('/brands/{brand}/edit', 'edit')->name('edit');
-    Route::put('/brands/{brand}/update', 'update');
-    Route::delete('/brands/{brand}', 'destroy');
-});
+Route::middleware('auth')->group(function () {
+    Route::middleware('admin')->controller(BrandController::class)->name('brands.')->group(function () {
+        Route::get('/brands', 'index')->name('index');
+        Route::get('/brands/{brand}/show', 'show')->name('show');
+        Route::get('/brands/create', 'create')->name('create');
+        Route::post('/brands', 'store')->name('store');
+        Route::get('/brands/{brand}/edit', 'edit')->name('edit');
+        Route::put('/brands/{brand}/update', 'update')->name('update');
+        Route::delete('/brands/{brand}', 'destroy')->name('destroy');
+    });
 
-Route::controller(CarsController::class)->name('cars.')->group(function () {
-    Route::get('/cars', 'index')->name('index');
-    Route::get('/cars/{car}/show', 'show')->name('show');
-    Route::get('/cars/create', 'create')->name('create');
-    Route::post('/cars', 'store');
-    Route::get('/cars/{car}/edit', 'edit')->name('edit');
-    Route::put('/cars/{car}/update', 'update');
-    Route::delete('/cars/{car}', 'destroy');
-});
+    Route::middleware('admin')->controller(CarsController::class)->name('cars.')->group(function () {
+        Route::get('/cars', 'index')->name('index');
+        Route::get('/cars/{car}/show', 'show')->name('show');
+        Route::get('/cars/create', 'create')->name('create');
+        Route::post('/cars', 'store')->name('store');
+        Route::get('/cars/{car}/edit', 'edit')->name('edit');
+        Route::put('/cars/{car}/update', 'update')->name('update');
+        Route::delete('/cars/{car}', 'destroy')->name('destroy');
+    });
 
-Route::controller(RentalController::class)->name('booking.')->group(function () {
-    Route::get('/booking', 'index')->name('index');
-    Route::get('/booking/{car}', 'show')->name('show');
-    Route::get('/booking/create', 'create')->name('create');
-    Route::post('/booking', 'store');
-    Route::get('/booking/{car}/edit', 'edit')->name('edit');
-    Route::put('/booking/{car}/update', 'update');
-    Route::delete('/booking/{car}', 'destroy');
+    Route::controller(RentalController::class)->name('booking.')->group(function () {
+        Route::middleware('auth')->group(function () {
+            Route::get('/booking/pick/{car}', 'booking')->name('booking');
+            Route::post('/booking/pick/{car}', 'storeBooking')->name('storeBooking');
+            Route::get('/booking/history', 'history')->name('history');
+
+            Route::get('/booking', 'index')->name('index');
+            Route::get('/booking/{rental}', 'show')->name('show');
+            Route::get('/booking/{rental}/create', 'create')->name('create');
+            Route::post('/booking', 'store')->name('store');
+            Route::get('/booking/{rental}/edit', 'edit')->name('edit');
+            Route::put('/booking/{rental}/update', 'update')->name('update');
+            Route::delete('/booking/{rental}', 'destroy')->name('destroy');
+        });
+    });
 });

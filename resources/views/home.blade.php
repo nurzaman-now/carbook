@@ -29,22 +29,30 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="carousel-car owl-carousel">
-                        <div class="item">
-                            <div class="car-wrap rounded ftco-animate">
-                                <div class="img rounded d-flex align-items-end"
-                                    style="background-image: url(images/car-1.jpg);">
-                                </div>
-                                <div class="text">
-                                    <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                    <div class="d-flex mb-3">
-                                        <span class="cat">Cheverolet</span>
-                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                        @foreach ($carsBrand as $car)
+                            <div class="item">
+                                <div class="car-wrap rounded ftco-animate">
+                                    <div class="img rounded d-flex align-items-end"
+                                        style="background-image: url(storage/cars/{{ $car->image ?? '' }});">
                                     </div>
-                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book
-                                            now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                    <div class="text">
+                                        <h2 class="mb-0"><a href="#">{{ $car->name ?? '' }}</a></h2>
+                                        <div class="d-flex mb-3">
+                                            <span class="cat">{{ $car->brand->name ?? '' }}
+                                                <br>{{ $car->model ?? '' }}</span>
+                                            <p class="price ml-auto">
+                                                Rp. {{ number_format($car->price_day, 0, ',', '.') }}
+                                                <span>/Hari</span>
+                                            </p>
+                                        </div>
+                                        <p class="d-flex mb-0 d-block"><a href="#"
+                                                class="btn btn-primary w-100">Book
+                                                now</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -89,15 +97,7 @@
                 <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                     <div class="block-18">
                         <div class="text text-border d-flex align-items-center">
-                            <strong class="number" data-number="60">0</strong>
-                            <span>Year <br>Experienced</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-                    <div class="block-18">
-                        <div class="text text-border d-flex align-items-center">
-                            <strong class="number" data-number="1090">0</strong>
+                            <strong class="number" data-number="{{ $totalCar }}">0</strong>
                             <span>Total <br>Cars</span>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                 <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                     <div class="block-18">
                         <div class="text d-flex align-items-center">
-                            <strong class="number" data-number="67">0</strong>
+                            <strong class="number" data-number="{{ $totalBrand }}">0</strong>
                             <span>Total <br>Branches</span>
                         </div>
                     </div>

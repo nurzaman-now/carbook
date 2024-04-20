@@ -21,9 +21,8 @@ class Car extends Model
         'name',
         'brand_id',
         'model',
-        'plate_number',
+        'license_plate',
         'price_day',
-        'is_available',
     ];
 
     /**
@@ -43,5 +42,17 @@ class Car extends Model
     public function rentals()
     {
         return $this->hasMany(Rental::class);
+    }
+
+    public function getAvailableAttribute()
+    {
+        // Mengambil semua rental yang masih berlangsung atau telah dibuat tetapi belum dikembalikan
+        $ongoingRentals = $this->rentals()->where(function ($query) {
+            $query->where('rental_date', '<=', now())
+                ->where('return_date', '>=', now());
+        })->exists();
+
+        // Mengembalikan false jika ada rental yang sedang berlangsung atau true jika tidak ada
+        return !$ongoingRentals;
     }
 }
