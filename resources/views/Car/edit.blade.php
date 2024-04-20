@@ -13,7 +13,7 @@
             {{--  button tambah  --}}
             <div class="row justify-content-center">
                 <div class="col-md-12 text-right">
-                    <a href="{{ route('brands.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('cars.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Kembali</a>
                 </div>
             </div>

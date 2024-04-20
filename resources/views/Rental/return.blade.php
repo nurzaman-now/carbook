@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-                    <span class="h1 text-white">Data Sewa Mobil</span>
+                    <span class="h1 text-white">Data Pengembalian</span>
                 </div>
             </div>
             <div class="row mt-2">
@@ -28,7 +28,6 @@
                                         <th>Harga</th>
                                         <th>Tanggal Booking</th>
                                         <th>Tanggal Pengembalian</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,16 +41,6 @@
                                                 RP. {{ number_format($rental->car->price_day, 0, ',', '.') }}</td>
                                             <td class="text-center">{{ $rental->rental_date }}</td>
                                             <td class="text-center">{{ $rental->return_date }}</td>
-                                            <td class="text-center">
-                                                @if ($rental->is_return)
-                                                    <button class="btn btn-success w-100" disabled>Sudah
-                                                        Dikembalikan</button>
-                                                @else
-                                                    <a href="{{ route('booking.returnForm', $rental->car->license_plate) }}"
-                                                        class="btn btn-primary">
-                                                        <i class="bi bi-arrow-repeat"></i> Kembalikan</a>
-                                                @endif
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

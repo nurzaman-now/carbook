@@ -31,25 +31,46 @@
                     <div class="row">
                         @foreach ($cars as $car)
                             {{--  card  --}}
-                            <div class="col-md-4 ftco-animate">
-                                <div class="card">
-                                    <img src="{{ asset('storage/cars/' . $car->image) }}" class="card-img-top"
-                                        alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $car->name }}</h5>
-                                        <p class="card-text">{{ $car->brand->name }} - {{ $car->model }}</p>
-                                        <p class="card-text">Rp. {{ number_format($car->price_day, 0, ',', '.') }} / Hari
-                                        </p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <a href="{{ route('booking.booking', $car->id) }}"
-                                            class="btn btn-primary w-100">Pesan
-                                            Sekarang</a>
+                            @if ($car->available)
+                                <div class="col-md-4 ftco-animate">
+                                    <div class="card">
+                                        <img src="{{ asset('storage/cars/' . $car->image) }}" class="card-img-top"
+                                            alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $car->name }}</h5>
+                                            <p class="card-text">{{ $car->brand->name }} - {{ $car->model }}</p>
+                                            <p class="card-text">Rp. {{ number_format($car->price_day, 0, ',', '.') }} /
+                                                Hari
+                                            </p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="{{ route('booking.booking', $car->id) }}"
+                                                class="btn btn-primary w-100">Pesan
+                                                Sekarang</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
+
+                    {{--  pagination  --}}
+                    @if ($cars->lastPage() > 1)
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $cars->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $cars->url(1) }}">First</a>
+                            </li>
+                            @for ($i = 1; $i <= $cars->lastPage(); $i++)
+                                <li class="page-item {{ $cars->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $cars->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $cars->currentPage() == $cars->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $cars->url($cars->lastPage()) }}">Last</a>
+                            </li>
+                        </ul>
+                    @endif
+
                 </div>
             </div>
         </div>

@@ -1,25 +1,11 @@
 @extends('Layout.app')
 
 @section('content')
-    <div class="hero-wrap ftco-degree-bg" style="background-image: url('images/bg_1.jpg');"
-        data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
-                <div class="col-lg-8 ftco-animate">
-                    <div class="text w-100 text-center mb-md-5 pb-md-5">
-                        <h1 class="mb-4">Cara Cepat & Mudah Untuk Menyewa Mobil</h1>
-                        <p style="font-size: 18px;">
-                            <a href="#" class="btn btn-success py-2 px-4">Sewa Mobil Sekarang</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="ftco-section ftco-no-pt bg-dark">
     </div>
 
     {{--  section form login --}}
-    <section class="ftco-section ftco-no-pt bg-light">
+    <section class="ftco-section bg-light mt-2">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 heading-section text-center ftco-animate mb-5">
@@ -61,8 +47,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary py-3 px-4">Login</button>
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary">Login</button>
                         </div>
                 </div>
                 </form>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Rental;
+use App\Models\ReturnRental;
 use Illuminate\Http\Request;
 
 class RentalController extends Controller
@@ -16,11 +17,13 @@ class RentalController extends Controller
     public function storeBooking(Request $request, Car $car)
     {
         $request->validate([
-            'rental_date' => 'required|date',
-            'return_date' => 'required|date',
+            'rental_date' => 'required',
+            'return_date' => 'required',
         ]);
 
-        $totalPrice = $car->price_day * (strtotime($request->return_date) - strtotime($request->rental_date)) / (60 * 60 * 24);
+        $totalPrice = $car->price_day *
+            (strtotime($request->return_date) - strtotime($request->rental_date))
+            / (60 * 60 * 24);
 
         $create = Rental::create([
             'user_id' => auth()->id(),
@@ -45,51 +48,43 @@ class RentalController extends Controller
         return view('Rental.index', compact('rentals'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function returnBook()
     {
-        //
+        $rentals = ReturnRental::all();
+        return view('Rental.return', compact('rentals'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function returnBookForm($license_plate)
     {
-        //
+        $car = Car::where('license_plate', $license_plate)->first();
+        $rental = Rental::where('car_id', $car->id)->first();
+        return view('Rental.return_form', compact('car', 'rental'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Rental $rental)
+    public function returnBookPost(Request $request, $license_plat)
     {
-        //
-    }
+        $car = Car::where('license_plate', $license_plat)->first();
+        if (!$car) {
+            return redirect()->route('booking.return')->with('failed', 'Mobil Tidak Ditemukan');
+        }
+        $rental = Rental::where('car_id', $car->id)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Rental $rental)
-    {
-        //
-    }
+        $totalPrice = $car->price_day *
+            (strtotime($rental->return_date) -
+                strtotime(now()))
+            / (60 * 60 * 24);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Rental $rental)
-    {
-        //
-    }
+        $create = ReturnRental::create([
+            'user_id' => auth()->id(),
+            'car_id' => $car->id,
+            'rental_date' => $rental->rental_date,
+            'return_date' => now(),
+            'total_price' => $totalPrice,
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Rental $rental)
-    {
-        //
+        if ($create) {
+            return redirect()->route('booking.return')->with('success', 'Return Berhasil');
+        }
+        return redirect()->route('booking.return')->with('failed', 'Return Gagal');
     }
 }

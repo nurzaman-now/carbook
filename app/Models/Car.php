@@ -44,6 +44,11 @@ class Car extends Model
         return $this->hasMany(Rental::class);
     }
 
+    public function returnRentals()
+    {
+        return $this->hasMany(ReturnRental::class);
+    }
+
     public function getAvailableAttribute()
     {
         // Mengambil semua rental yang masih berlangsung atau telah dibuat tetapi belum dikembalikan

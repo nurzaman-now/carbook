@@ -33,17 +33,11 @@ class AuthController extends Controller
     {
         $q = $request->get('q');
         if ($q) {
-            $data = Car::where('name', 'like', "%$q%")
+            $cars = Car::where('name', 'like', "%$q%")
                 ->orWhere('model', 'like', "%$q%")
-                ->get();
+                ->paginate(10);
         } else {
-            $data = Car::all();
-        }
-        $cars = array();
-        foreach ($data as $car) {
-            if ($car->available) {
-                array_push($cars, $car);
-            }
+            $cars = Car::paginate(10);
         }
         return view('cars', compact('cars', 'q'));
     }

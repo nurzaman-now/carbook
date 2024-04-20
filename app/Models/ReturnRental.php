@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rental extends Model
+class ReturnRental extends Model
 {
+
     use HasFactory, HasUuids;
 
     /**
@@ -61,11 +62,5 @@ class Rental extends Model
         $date = date('d F Y', strtotime($date));
 
         return $date;
-    }
-
-    // get is return
-    public function getIsReturnAttribute()
-    {
-        return $this->car->returnRentals->first() ? true : false;
     }
 }

@@ -10,7 +10,7 @@
                     <div class="text w-100 text-center mb-md-5 pb-md-5">
                         <h1 class="mb-4">Cara Cepat & Mudah Untuk Menyewa Mobil</h1>
                         <p style="font-size: 18px;">
-                            <a href="#" class="btn btn-success py-2 px-4">Sewa Mobil Sekarang</a>
+                            <a href="{{ route('register') }}" class="btn btn-success py-2 px-4">Sewa Mobil Sekarang</a>
                         </p>
                     </div>
                 </div>
@@ -45,8 +45,7 @@
                                                 <span>/Hari</span>
                                             </p>
                                         </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#"
-                                                class="btn btn-primary w-100">Book
+                                        <p class="d-flex mb-0 d-block"><a href="{{ route('booking.booking', $car->id) }}" class="btn btn-primary w-100">Book
                                                 now</a>
                                         </p>
                                     </div>

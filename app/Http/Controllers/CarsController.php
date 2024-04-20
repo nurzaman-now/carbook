@@ -12,10 +12,17 @@ class CarsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Car::all();
-        return view('Car.index', compact('cars'));
+        $q = $request->get('q');
+        if ($q) {
+            $cars = Car::where('name', 'like', "%$q%")
+                ->orWhere('model', 'like', "%$q%")
+                ->paginate(10);
+        } else {
+            $cars = Car::paginate(10);
+        }
+        return view('Car.index', compact('cars', 'q'));
     }
 
     /**

@@ -53,17 +53,13 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(RentalController::class)->name('booking.')->group(function () {
         Route::middleware('auth')->group(function () {
+
             Route::get('/booking/pick/{car}', 'booking')->name('booking');
             Route::post('/booking/pick/{car}', 'storeBooking')->name('storeBooking');
-            Route::get('/booking/history', 'history')->name('history');
-
-            Route::get('/booking', 'index')->name('index');
-            Route::get('/booking/{rental}', 'show')->name('show');
-            Route::get('/booking/{rental}/create', 'create')->name('create');
-            Route::post('/booking', 'store')->name('store');
-            Route::get('/booking/{rental}/edit', 'edit')->name('edit');
-            Route::put('/booking/{rental}/update', 'update')->name('update');
-            Route::delete('/booking/{rental}', 'destroy')->name('destroy');
+            Route::get('/booking/history', 'index')->name('index');
+            Route::get('/booking/return', 'returnBook')->name('return');
+            Route::get('/booking/return/post/{license_plate}', 'returnBookForm')->name('returnForm');
+            Route::post('/booking/return/post/{license_plate}', 'returnBookPost')->name('returnPost');
         });
     });
 });

@@ -9,9 +9,6 @@
                 <div class="col-lg-8 ftco-animate">
                     <div class="text w-100 text-center mb-md-5 pb-md-5">
                         <h1 class="mb-4">Cara Cepat & Mudah Untuk Menyewa Mobil</h1>
-                        <p style="font-size: 18px;">
-                            <a href="#" class="btn btn-success py-2 px-4">Sewa Mobil Sekarang</a>
-                        </p>
                     </div>
                 </div>
             </div>

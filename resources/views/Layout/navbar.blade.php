@@ -31,8 +31,11 @@
                         <li class="nav-item {{ $path == 'cars' ? 'active' : '' }}">
                             <a href="{{ route('cars') }}" class="nav-link">Cars</a>
                         </li>
-                        <li class="nav-item {{ $path == 'booking' ? 'active' : '' }}">
+                        <li class="nav-item {{ $path == 'booking' && $sub == 'index' ? 'active' : '' }}">
                             <a href="{{ route('booking.index') }}" class="nav-link">Booking</a>
+                        </li>
+                        <li class="nav-item {{ $path == 'booking' && $sub == 'return' ? 'active' : '' }}">
+                            <a href="{{ route('booking.return') }}" class="nav-link">Return</a>
                         </li>
                     @endif
 
