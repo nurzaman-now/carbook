@@ -1,7 +1,6 @@
 @extends('Layout.app')
 
 @section('content')
-    {{ $errors }}
     {{--  CRUD CAR  --}}
     <section class="ftco-section bg-dark">
         <div class="container">
